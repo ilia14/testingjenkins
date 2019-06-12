@@ -1,0 +1,14 @@
+#!groovy
+
+node {
+    stage('Clone Repository') {
+        checkout scm
+    }
+
+    stage('Testd') {
+        customImage.inside {
+            sh 'echo "Test in ci"'
+        }
+    }
+}
+
