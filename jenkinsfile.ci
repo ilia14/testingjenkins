@@ -1,4 +1,4 @@
-#!groovy
+d#!groovy
 
 node {
     stage('Clone Repository') {
