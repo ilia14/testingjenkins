@@ -1,9 +1,9 @@
 #!groovy
 
 node {
-
+    echo ${env.BRANCH_NAME}
     stage ('Checkout SCM') {
-        sh 'echo ${env.BRANCH_NAME}'
+        echo ${env.BRANCH_NAME}
         def scmVars = checkout([$class: 'GitSCM', branches: [[name: env.BRANCH_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
         env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
         echo env.shortCommit
