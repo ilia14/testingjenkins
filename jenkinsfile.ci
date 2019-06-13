@@ -7,9 +7,5 @@ node {
         env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
         echo env.shortCommit
     }
-    stage('Testd') {
-        customImage.inside {
-            sh 'echo "Test in ci"'
-        }
-    }
+
 }
