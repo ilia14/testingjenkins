@@ -4,7 +4,7 @@ node {
 
     stage ('Checkout SCM') {
         echo "master"
-        def scmVars = checkout([$class: 'GitSCM', branches: [[name: '*']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: ‘LocalBranch’, localBranch: “**”]],, submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
+        def scmVars = checkout([$class: 'GitSCM', branches: [[name: env.BRANCH_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
         env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
         echo env.shortCommit
         echo env.BRANCH_NAME
