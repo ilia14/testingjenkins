@@ -1,12 +1,13 @@
 #!groovy
 
 node {
-    
+
     stage ('Checkout SCM') {
 
-        def scmVars = checkout([$class: 'GitSCM', branches: [[name: 'origin/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
+        def scmVars = checkout([$class: 'GitSCM', branches: [[name: env.NODE_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
         env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
         echo env.shortCommit
+        echo env.NODE_NAME
 
     }
 
