@@ -3,10 +3,11 @@
 node {
     agent any
     stage ('Checkout SCM') {
-        echo "master"
-        def scmVars = checkout([$class: 'GitSCM', branches: [[name: "develop"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
+        echo 'master'
+        def scmVars = checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
         env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
         echo env.shortCommit
+        echo 'jenkinsfile'
         echo env.NODE_NAME
     }
 
