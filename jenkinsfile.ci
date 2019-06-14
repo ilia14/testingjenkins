@@ -10,18 +10,4 @@ node {
         echo env.NODE_NAME
     }
 
-
-
-    environment {
-        DISABLE_AUTH = 'true'
-        DB_ENGINE    = 'sqlite'
-    }
-
-    stages {
-        stage('Build') {
-            steps {
-                sh 'printenv'
-            }
-        }
-    }
 }
