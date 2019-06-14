@@ -1,17 +1,27 @@
 #!groovy
 
 node {
-
+    agent any
     stage ('Checkout SCM') {
         echo "master"
-        def scmVars = checkout([$class: 'GitSCM', branches: [[name: env.BRANCH_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
+        def scmVars = checkout([$class: 'GitSCM', branches: [[name: env.NODE_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${env.githubCredentialsIdilia}", url: 'https://github.com/ilia14/testingjenkins']]])
         env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
         echo env.shortCommit
-        echo env.BRANCH_NAME
+        echo env.NODE_NAME
     }
-    stage('Testd') {
-        customImage.inside {
-            sh 'echo "Test in ci"'
+
+
+
+    environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE    = 'sqlite'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'printenv'
+            }
         }
     }
 }
